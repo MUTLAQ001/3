@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>بوابة العمارة | جامعة القصيم</title>
+    <meta name="description" content="دليل شامل ومنظم لجميع روابط ومصادر كلية العمارة والتخطيط بجامعة القصيم.">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <style>
+      :root {
+        --primary-hue: 217;
+        --primary-sat: 90%;
+        --primary-light: 65%;
+        --rgb-primary: 94, 156, 255;
+        
+        --secondary-hue: calc(var(--primary-hue) + 40);
+        --secondary-sat: calc(var(--primary-sat) - 10%);
+        
+        --primary: hsl(var(--primary-hue), var(--primary-sat), var(--primary-light));
+        --primary-dark: hsl(var(--primary-hue), var(--primary-sat), calc(var(--primary-light) - 10%));
+        --secondary: hsl(var(--secondary-hue), var(--secondary-sat), var(--primary-light));
+        
+        --bg: #0a0a0a;
+        --bg-card: rgba(20, 20, 22, 0.75);
+        --border: rgba(255, 255, 255, 0.1);
+        --text-light: #f0f0f0;
+        --text-medium: #a9a9b9;
+        --font-body: "Cairo", sans-serif;
+        --font-title: "IBM Plex Sans Arabic", sans-serif;
+        
+        --radius: 20px;
+        --radius-md: 16px;
+        --radius-full: 999px;
+        --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+        --transition-main: 0.5s var(--ease-out-quint);
+        --transition-fast: 0.3s var(--ease-out-quint);
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+      html { scroll-behavior: smooth; }
+      
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: var(--bg); }
+      ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 4px; border: 2px solid transparent; background-clip: content-box; }
+      ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+
+      @keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+      @keyframes popIn { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+      @keyframes fadeOut { to { opacity: 0; transform: translateY(10px); } }
+      @keyframes modalPopIn { from { opacity: 0; transform: translateY(15px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+      @keyframes modalPopOut { to { opacity: 0; transform: translateY(15px) scale(0.95); } }
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes move-aurora-1 { 0% { transform: translate(0, 0) rotate(0deg) scale(1); } 50% { transform: translate(25vw, 15vh) rotate(180deg) scale(1.3); } 100% { transform: translate(0, 0) rotate(360deg) scale(1); } }
+      @keyframes move-aurora-2 { 0% { transform: translate(0, 0) rotate(0deg) scale(1.2); } 50% { transform: translate(-30vw, -20vh) rotate(-150deg) scale(1); } 100% { transform: translate(0, 0) rotate(-360deg) scale(1.2); } }
+
+      body { font-family: var(--font-body); background-color: var(--bg); color: var(--text-medium); direction: rtl; overflow-y: scroll; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; transition: background-color 0.5s ease; }
+      body.modal-open { overflow: hidden !important; }
+      
+      .cosmic-bg-container{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;overflow:hidden}
+      #starfield-canvas{position:absolute;top:0;left:0;width:100%;height:100%}
+
+      .app-wrapper { min-height: 100vh; position: relative; padding: 3rem 1.5rem; display: flex; flex-direction: column; }
+      
+      .aurora-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
+      .aurora-dot { position: absolute; border-radius: 50%; filter: blur(120px); transition: background-color .5s ease; opacity: 0.15; }
+      .aurora-dot-1 { width: 60vmax; height: 60vmax; background-color: var(--primary); top: -20%; left: -20%; animation: move-aurora-1 30s infinite alternate ease-in-out; }
+      .aurora-dot-2 { width: 55vmax; height: 55vmax; background-color: var(--secondary); bottom: -25%; right: -15%; animation: move-aurora-2 35s infinite alternate-reverse ease-in-out; }
+
+      .container { width: 100%; max-width: 960px; z-index: 1; margin: 0 auto; position: relative; display: flex; flex-direction: column; flex-grow: 1; }
+      
+      a, button { outline: none; }
+      *:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 6px; }
+
+      .page-header { text-align: center; margin-bottom: 2rem; animation: popIn 0.8s var(--ease-out-quint) .1s both; }
+      .page-title { font-family: var(--font-title); font-weight: 700; font-size: clamp(2.8rem, 6vw, 4rem); margin-bottom: 0.75rem; background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% 200%; animation: gradient-animation 6s ease-in-out infinite; }
+      .page-subtitle { color: var(--text-medium); font-size: clamp(1rem, 2vw, 1.25rem); animation: popIn 0.8s var(--ease-out-quint) .3s both; max-width: 600px; margin: 0 auto; line-height: 1.7; }
+      
+      .filter-carousel-wrapper { width: 100%; height: 80px; margin-bottom: 2.5rem; position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); cursor: grab; animation: popIn 0.8s var(--ease-out-quint) .4s both; }
+      .filter-carousel-wrapper.is-dragging { cursor: grabbing; }
+      .filter-carousel-track { display: flex; align-items: center; position: absolute; top: 0; left: 0; height: 100%; will-change: transform; user-select: none; }
+      .filter-carousel-track.is-dragging { pointer-events: none; }
+      .filter-btn { background: transparent; border: none; font-family: var(--font-body); font-weight: 600; font-size: 1.2rem; color: var(--text-medium); cursor: pointer; padding: 0.75rem 1.5rem; white-space: nowrap; opacity: 0.6; transform: scale(0.9); transition: transform 0.4s ease, opacity 0.4s ease, color 0.4s ease; position: relative; }
+      .filter-btn.is-active { color: var(--text-light); opacity: 1; transform: scale(1); }
+      .filter-btn.is-active::after { content: ''; position: absolute; bottom: 5px; right: 50%; transform: translateX(50%); width: 40%; height: 3px; background-image: linear-gradient(to left, var(--primary), var(--secondary)); border-radius: 2px; transition: all 0.4s ease; box-shadow: 0 0 15px var(--primary); }
+      
+      .links-grid { display: grid; grid-template-columns: 1fr; gap: 1.75rem; position: relative; min-height: 200px; flex-grow: 1; }
+      
+      .link-card {
+        --mouse-x: 50%; --mouse-y: 50%;
+        background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); 
+        padding: 1.5rem 2rem; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+        overflow: hidden; position: relative;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
+        transition: transform var(--transition-main), border-color var(--transition-main), box-shadow var(--transition-main);
+      }
+      .link-card::before {
+        content: ''; position: absolute; inset: -1px; border-radius: inherit;
+        background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), hsla(var(--primary-hue), var(--primary-sat), var(--primary-light), 0.2), transparent 80%);
+        opacity: 0; transition: opacity var(--transition-fast); pointer-events: none;
+      }
+      .link-card:hover { transform: translateY(-5px); border-color: hsla(var(--primary-hue), var(--primary-sat), var(--primary-light), 0.3); }
+      .link-card:hover::before { opacity: 1; }
+      
+      .is-filtered-out { display: none !important; }
+      .is-hiding { animation: fadeOut 0.3s ease-out forwards; animation-delay: var(--animation-order, 0s); }
+      .is-showing { animation: popIn 0.6s var(--ease-out-quint) both; animation-delay: var(--animation-order, 0s); }
+
+      .card-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+      .card-header .icon-wrapper { font-size: 1.8rem; color: var(--primary); transition: color var(--transition-fast); width: 48px; height: 48px; display: grid; place-items: center; background-color: hsla(var(--primary-hue), var(--primary-sat), var(--primary-light), 0.1); border-radius: 12px; }
+      .card-header .card-title { font-family: var(--font-title); font-weight: 700; font-size: 1.6rem; color: var(--text-light); }
+
+      .button-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+      .link-button { display: flex; align-items: center; gap: 1rem; padding: 0.9rem 1rem; border-radius: 10px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border); color: var(--text-medium); text-decoration: none; font-weight: 600; font-size: 1rem; transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast), filter var(--transition-fast); }
+      .link-button i, .link-button svg { font-size: 1.2rem; transition: transform 0.2s ease; width: 24px; text-align: center;}
+      .link-button:hover { transform: translateY(-3px); border-color: var(--primary); background: hsl(var(--primary-hue) var(--primary-sat) var(--primary-light) / 0.1); color: var(--text-light); filter: brightness(1.1); }
+      .link-button:hover i, .link-button:hover svg { transform: scale(1.1); }
+      
+      .empty-state { grid-column: 1 / -1; display: none; justify-content: center; align-items: center; text-align: center; padding: 4rem 1.5rem; flex-direction: column; gap: 1.5rem; animation: popIn 0.5s ease both; color: var(--text-light); }
+      .empty-state.is-visible { display: flex; }
+      .empty-state .icon { font-size: 3rem; color: var(--primary); opacity: 0.5; }
+      .empty-state span { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; }
+      
+      .page-footer { color: var(--text-medium); font-size: .9rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; padding-top: 3rem; margin-top: auto; border-top: 1px solid var(--border); animation: popIn 0.8s var(--ease-out-quint) .6s both; }
+      .footer-controls { display: flex; align-items: center; gap: 1.5rem; }
+      .footer-signature { font-weight: 600; }
+      .footer-link { color: var(--text-medium); transition: color 0.3s ease, transform 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; font-weight: 600; }
+      .footer-link:hover { color: var(--text-light); transform: scale(1.05); }
+      .footer-icon-btn { background: transparent; border: none; color: var(--text-medium); font-size: 1.5rem; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; text-decoration: none; }
+      .footer-icon-btn:hover { color: var(--primary); background-color: rgba(var(--rgb-primary), 0.1); transform: scale(1.1); }
+      .footer-controls .footer-link svg { font-size: 1.5rem; transition: transform 0.3s ease; }
+      .footer-controls .footer-link:hover svg { transform: scale(1.1); }
+      
+      .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000; display: flex; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.4s ease; }
+      .modal-overlay.is-open { opacity: 1; }
+      .modal-content { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; width: 90%; max-width: 500px; z-index: 1001; position: relative; backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px); transition: background-color 0.5s ease, border-color 0.5s ease; animation: modalPopIn 0.4s var(--ease-out-quint) forwards; }
+      .modal-content.is-closing { animation: modalPopOut 0.3s ease-out forwards; }
+      .modal-close-btn { position: absolute; top: 1rem; left: 1rem; background: none; border: none; color: var(--text-medium); font-size: 1.8rem; cursor: pointer; transition: 0.3s ease; padding: 0.25rem; line-height: 1; }
+      .modal-close-btn:hover { color: var(--text-light); transform: rotate(90deg); }
+      .modal-header { font-family: var(--font-title); font-size: 1.5rem; color: var(--text-light); margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); transition: color 0.5s ease, border-color 0.5s ease; }
+      .settings-content { display: flex; flex-direction: column; gap: 1rem; text-align: right; }
+      .settings-section { display: flex; flex-direction: column; gap: 1rem; }
+      .settings-section-title { font-family: var(--font-title); font-size: 1.2rem; color: var(--primary); margin-bottom: 0; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); transition: color 0.5s ease, border-color 0.5s ease; }
+      .settings-item { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+      .settings-item h4 { font-family: var(--font-body); font-weight: 600; font-size: 1rem; color: var(--text-light); transition: color 0.5s ease; margin: 0; }
+      .mode-toggle { display: flex; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: var(--radius-full); padding: 4px; gap: 4px; transition: 0.5s ease; }
+      .mode-btn { padding: 0.4rem 1rem; border: none; border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; cursor: pointer; background: transparent; color: var(--text-medium); transition: all 0.3s ease; user-select: none; }
+      .mode-btn.active { background: var(--primary); color: #fff; box-shadow: 0 2px 5px rgba(var(--rgb-primary), 0.2); }
+      .theme-picker { display: flex; gap: .5rem; align-items: center; flex-shrink: 0; }
+      .theme-dot { width: 24px; height: 24px; border-radius: 50%; cursor: pointer; transition: transform .2s ease, border-color .2s ease; border: 2px solid transparent; }
+      .theme-dot:hover { transform: scale(1.2); }
+      .theme-dot.active { border-color: #fff; transform: scale(1.1); }
+      .color-picker-label { position: relative; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; transition: all .2s ease; border: 2px solid var(--border); user-select: none; overflow: hidden; }
+      .color-picker-label:hover { transform: scale(1.2); }
+      .color-picker-label.active { border-color: #fff; transform: scale(1.1); }
+      .color-picker-input { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; border: none; padding: 0; cursor: pointer; }
+
+      .light-mode { --bg: #f5f9ff; --bg-card: rgba(255, 255, 255, 0.7); --border: hsl(var(--primary-hue) 50% 50% / 0.15); --text-light: #202020; --text-medium: #707070; --primary-sat: 80%; }
+      .light-mode .aurora-dot { opacity: 0.3; filter: blur(140px); }
+      .light-mode .link-card { box-shadow: 0 10px 40px -15px rgba(100, 140, 180, 0.3), 0 1px 2px rgba(0,0,0,0.02); backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%); }
+      .light-mode .link-button { background: hsl(var(--primary-hue) 60% 50% / 0.08); border-color: hsl(var(--primary-hue) 60% 50% / 0.2); color: var(--text-medium); }
+      .light-mode .link-button:hover { color: var(--primary-dark); background: hsl(var(--primary-hue) 60% 50% / 0.15); border-color: hsl(var(--primary-hue) 60% 50% / 0.3); }
+      .light-mode .mode-toggle { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.08); }
+      .light-mode .footer-icon-btn:hover { background-color: rgba(var(--rgb-primary), 0.1); }
+      .light-mode .modal-overlay { background-color: rgba(0, 0, 0, 0.15); }
+      .light-mode .modal-close-btn:hover { color: var(--text-light); }
+      .light-mode .settings-item h4, .light-mode .modal-header { color: var(--text-light); }
+      
+      /* --- START: Desktop Layout Improvements --- */
+      @media (min-width: 992px) {
+        .container {
+          max-width: 1100px;
+        }
+        .links-grid {
+          grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+        }
+        .link-card:hover {
+          transform: translateY(-10px) scale(1.02);
+          box-shadow: 0 20px 50px -15px rgba(0,0,0,0.5), 
+                      0 0 30px -10px hsla(var(--primary-hue), var(--primary-sat), var(--primary-light), 0.6), 
+                      inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+      }
+      /* --- END: Desktop Layout Improvements --- */
+
+    </style>
+</head>
+<body>
+    <div class="cosmic-bg-container">
+        <canvas id="starfield-canvas"></canvas>
+    </div>
+
+    <div class="app-wrapper">
+        <div class="aurora-bg">
+            <div class="aurora-dot aurora-dot-1"></div>
+            <div class="aurora-dot aurora-dot-2"></div>
+        </div>
+        
+        <div class="container">
+            <header class="page-header">
+                <h1 class="page-title">بوابة العمارة</h1>
+                <p class="page-subtitle">دليل شامل ومنظم لجميع روابط ومصادر كلية العمارة والتخطيط.</p>
+            </header>
+            
+            <div class="filter-carousel-wrapper" id="primary-carousel-wrapper">
+                <div class="filter-carousel-track" id="primary-carousel-track"></div>
+            </div>
+
+            <main class="links-grid" id="links-grid">
+                <div class="empty-state" id="empty-state">
+                    <i class="fas fa-compass icon"></i>
+                    <span>لا توجد نتائج تطابق هذا التصنيف.</span>
+                    <button class="link-button" id="reset-filter-btn">عرض الكل</button>
+                </div>
+            </main>
+
+            <footer class="page-footer">
+                <div class="footer-signature">
+                    <span class="footer-link">© <span id="currentYear"></span> | ظلام</span>
+                </div>
+                <div class="footer-controls">
+                    <button id="settings-btn" class="footer-icon-btn" title="الإعدادات" aria-label="الإعدادات"></button>
+                    <a href="https://t.me/mutlaq1" class="footer-link" target="_blank" rel="noopener noreferrer" title="تواصل معي على تليجرام" aria-label="تواصل معي على تليجرام"></a>
+                </div>
+            </footer>
+        </div>
+    </div>
+    
+    <div id="settings-modal-container"></div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const SITE_DATA = [ { category: 'community', title: 'المجتمع والقروبات', icon: 'fa-users', links: [ { text: 'قناة العمارة', href: 'https://t.me/architectureAd', icon: 'telegram' }, { text: 'قروب العمارة', href: 'https://t.me/CAP_QU', icon: 'telegram' }, { text: 'قروب التخطيط الحضري', href: 'https://t.me/DepartmentQU', icon: 'telegram' }, { text: 'قروب التصميم الداخلي', href: 'https://t.me/InteriorDesign_QU', icon: 'telegram' }, { text: 'مجلد قنوات التصميم', href: 'https://t.me/addlist/nRU9Rv33WmY0ZmM0', icon: 'folder' } ]}, { category: 'resources', title: 'مصادر وملفات هامة', icon: 'fa-book-open', links: [ { text: 'مساحة العمارة (Drive)', href: 'https://drive.google.com/drive/folders/11_UOT_RLOsfqN2HRaa7CONLrUfvN86B-', icon: 'google-drive' }, { text: 'معلومات اختبار العمارة', href: 'https://t.me/CAP_QU/33683', icon: 'circle-info' }, { text: 'مصادر الاختبار', href: 'https://t.me/CAP_QU/35490', icon: 'circle-info' } ]}, { category: 'official', title: 'الروابط الرسمية', icon: 'fa-building-columns', links: [ { text: 'كلية العمارة والتخطيط', href: 'https://www.qu.edu.sa/colleges/cap/', icon: 'link' }, { text: 'قسم العمارة', href: 'https://www.qu.edu.sa/colleges/cap/departments/cap-1/', icon: 'link' }, { text: 'برنامج التصميم الداخلي', href: 'https://www.qu.edu.sa/colleges/cap/programs/bachelor-of-intrerio-design/', icon: 'link' }, { text: 'موقع الكلية (خرائط)', href: 'https://maps.app.goo.gl/azhphjNfXgcVrnRE7', icon: 'map-location-dot' } ]}, { category: 'contact', title: 'للتواصل والدعم', icon: 'fa-address-book', links: [ { text: 'التواصل مع كلية العمارة', href: 'https://t.me/c/1835615308/21482', icon: 'telegram' }, { text: 'شؤون كلية العمارة', href: 'https://t.me/c/1835615308/21475', icon: 'telegram' }, { text: 'عمادة القبول والتسجيل', href: 'https://t.me/Qassim_R/223', icon: 'telegram' }, { text: 'عمادة شؤون الطلاب', href: 'https://t.me/Qassim_R/226', icon: 'telegram' }, { text: 'قسم المكافآت', href: 'https://wa.me/966163012828', icon: 'whatsapp' }, { text: 'قسم المنح الداخلية', href: 'https://t.me/Qassim_R/227', icon: 'telegram' }, { text: 'مركز رعاية المستفيدين', href: 'https://t.me/Qassim_R/224', icon: 'telegram' }, { text: 'جهات تواصل أخرى', href: 'https://t.me/Qassim_R/228', icon: 'telegram' } ]} ];
+            const PRIMARY_FILTERS = [ { id: 'all', text: 'الكل' }, { id: 'community', text: 'المجتمع' }, { id: 'resources', text: 'مصادر' }, { id: 'official', text: 'الرسمية' }, { id: 'contact', text: 'التواصل' } ];
+            const PRESET_THEMES = { blue: '#5e9cff', purple: '#a777ff', green: '#00c853' };
+            const ICONS = { users: '<i class="fas fa-users"></i>', telegram: '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 1.62 11.22c-.72-.24-.72-1.16 0-1.41l18.26-6.91c.63-.24 1.22.23 1.01.89L17.43 18.4c-.2 1.39-1.53 1.76-2.53.94l-4.26-3.51-2.86 2.72a.5.5 0 0 1-.88-.38v-4.48z"></path></svg>', folder: '<i class="fas fa-folder"></i>', 'book-open': '<i class="fas fa-book-open"></i>', 'google-drive': '<i class="fab fa-google-drive"></i>', 'circle-info': '<i class="fas fa-circle-info"></i>', 'building-columns': '<i class="fas fa-building-columns"></i>', link: '<i class="fas fa-link"></i>', 'map-location-dot': '<i class="fas fa-map-location-dot"></i>', 'address-book': '<i class="fas fa-address-book"></i>', whatsapp: '<i class="fab fa-whatsapp"></i>', cog: '<i class="fas fa-cog"></i>', times: '<i class="fas fa-times"></i>', };
+
+            const grid = document.getElementById('links-grid');
+            const emptyState = document.getElementById('empty-state');
+            let activeFilterId = 'all';
+            let isAnimating = false;
+
+            const initCosmicEffects = () => {
+                const canvas = document.getElementById('starfield-canvas'); if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                let stars = [], shootingStars = [], scrollSpeed = 0, lastScrollY = window.scrollY;
+                let mouseX = 0, mouseY = 0;
+                function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+                window.addEventListener('mousemove', e => { mouseX = e.clientX - canvas.width / 2; mouseY = e.clientY - canvas.height / 2; });
+                class Star { constructor() { this.depth = Math.random() * 0.9 + 0.1; this.reset(); this.pulsate = Math.random() > 0.98; this.alpha = 0; this.alphaChange = (Math.random() * 0.02) + 0.005; this.vx = (Math.random() - 0.5) * 0.1 * this.depth; this.vy = (Math.random() - 0.5) * 0.1 * this.depth; } reset() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.radius = (Math.random() * 1.2 + 0.3) * this.depth; this.maxAlpha = (Math.random() * 0.5 + 0.3) * this.depth; } draw() { const parallaxX = (mouseX / (canvas.width / 2)) * -25 * this.depth; const parallaxY = (mouseY / (canvas.height / 2)) * -25 * this.depth; if (this.pulsate) { this.alpha += this.alphaChange; if (this.alpha >= this.maxAlpha || this.alpha <= 0) this.alphaChange *= -1; } else { this.alpha = this.maxAlpha; } ctx.globalAlpha = this.alpha; ctx.beginPath(); ctx.arc(this.x + parallaxX, this.y + parallaxY, this.radius, 0, Math.PI * 2); ctx.fillStyle = `hsl(220, 80%, 95%)`; ctx.fill(); ctx.globalAlpha = 1; } update() { this.y += (scrollSpeed * this.depth) + this.vy; this.x += this.vx; if (this.x > canvas.width + this.radius) this.x = -this.radius; if (this.x < -this.radius) this.x = canvas.width + this.radius; if (this.y > canvas.height + this.radius) this.y = -this.radius; if (this.y < -this.radius) this.y = canvas.height + this.radius; this.draw(); } }
+                class ShootingStar { constructor() { this.reset(); } reset() { this.x = Math.random() * canvas.width; this.y = 0; this.len = Math.random() * 80 + 10; this.speed = Math.random() * 10 + 6; this.size = Math.random() * 1 + 0.1; this.waitTime = new Date().getTime() + Math.random() * 3000 + 500; this.active = false; } update() { if (this.active) { this.x -= this.speed; this.y += this.speed; if (this.x < 0 || this.y >= canvas.height) this.reset(); } else if (this.waitTime < new Date().getTime()) this.active = true; } draw() { if (this.active) { ctx.strokeStyle = `hsla(220, 100%, 80%, ${Math.random() * 0.5 + 0.5})`; ctx.lineWidth = this.size; ctx.beginPath(); ctx.moveTo(this.x, this.y); ctx.lineTo(this.x + this.len, this.y - this.len); ctx.stroke(); } } }
+                function initStars() { stars = []; shootingStars = []; const starCount = Math.floor(canvas.width * canvas.height / 8000); for (let i = 0; i < starCount; i++) { stars.push(new Star()); } for (let i = 0; i < 3; i++) { shootingStars.push(new ShootingStar()); } }
+                function animate() { requestAnimationFrame(animate); ctx.clearRect(0, 0, canvas.width, canvas.height); stars.forEach(s => s.update()); shootingStars.forEach(s => { s.update(); s.draw(); }); scrollSpeed *= 0.9; }
+                window.addEventListener('scroll', () => { const delta = window.scrollY - lastScrollY; scrollSpeed += delta * 0.03; lastScrollY = window.scrollY; });
+                window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
+                resizeCanvas(); initStars(); animate();
+            };
+
+            const createCardHTML = (cardData, index) => {
+                const header = `<div class="card-header"><div class="icon-wrapper">${ICONS[cardData.icon.replace('fa-','')] || ''}</div><h2 class="card-title">${cardData.title}</h2></div>`;
+                const buttonGroup = `<div class="button-group">${cardData.links.map(link => `<a href="${link.href}" target="_blank" rel="noopener noreferrer" class="link-button">${ICONS[link.icon.replace('fa-','')] || `<i class="fas ${link.icon}"></i>`}<span>${link.text}</span></a>`).join('')}</div>`;
+                return `<section class="link-card is-showing" data-category="${cardData.category}" style="--animation-order: ${index * 60}ms">${header}${buttonGroup}</section>`;
+            };
+            
+            const filterContent = () => {
+                if (isAnimating) return; isAnimating = true;
+                const cards = Array.from(grid.querySelectorAll('.link-card'));
+                const toHide = [], toShow = [];
+                let visibleCardCount = 0;
+                cards.forEach(card => {
+                    const shouldShow = activeFilterId === 'all' || card.dataset.category === activeFilterId;
+                    if (shouldShow) visibleCardCount++;
+                    const isVisible = !card.classList.contains('is-filtered-out');
+                    if (shouldShow && !isVisible) toShow.push(card);
+                    else if (!shouldShow && isVisible) toHide.push(card);
+                });
+                emptyState.classList.toggle('is-visible', visibleCardCount === 0);
+                let hideAnimationTime = toHide.length * 40 + 200;
+                toHide.forEach((card, i) => { card.style.setProperty('--animation-order', `${i * 40}ms`); card.classList.add('is-hiding'); card.addEventListener('animationend', () => { card.classList.add('is-filtered-out'); card.classList.remove('is-hiding'); }, { once: true }); });
+                setTimeout(() => {
+                    toShow.forEach((card, i) => { card.style.setProperty('--animation-order', `${i * 60}ms`); card.classList.remove('is-filtered-out'); card.classList.add('is-showing'); card.addEventListener('animationend', () => card.classList.remove('is-showing'), { once: true }); });
+                    setTimeout(() => { isAnimating = false; }, toShow.length * 60 + 300);
+                }, toHide.length > 0 ? hideAnimationTime : 0);
+            };
+            
+            const createCarouselInstance = (wrapperId, trackId, filters, onFilterChange) => {
+                const wrapper = document.getElementById(wrapperId), track = document.getElementById(trackId);
+                if (!wrapper || !track) return null;
+                const CLONE_COUNT = filters.length;
+                track.innerHTML = [...filters, ...filters, ...filters].map((f, i) => `<button class="filter-btn" data-filter="${f.id}" data-index="${i}" role="button" aria-pressed="false">${f.text}</button>`).join('');
+                const allButtons = Array.from(track.querySelectorAll('.filter-btn'));
+                let isDragging = false, startPos = 0, currentTranslate = 0, prevTranslate = 0, animationID, currentIndex = CLONE_COUNT, isClick = true, velocity = 0, lastPosition = 0;
+                const FRICTION = 0.94, AMPLIFIER = 1.5;
+                const setPosition = (p, withAnim) => { track.style.transition = withAnim ? 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)' : 'none'; track.style.transform = `translateX(${p}px)`; currentTranslate = p; };
+                const recenterTrack = (withAnim) => { const btn = allButtons[currentIndex]; if (!btn) return; const pos = -btn.offsetLeft + (wrapper.clientWidth / 2) - (btn.clientWidth / 2); setPosition(pos, withAnim); prevTranslate = pos; };
+                const activateFilter = (targetIndex, withAnim, triggerChange) => {
+                    currentIndex = targetIndex; recenterTrack(withAnim); const realIndex = targetIndex % CLONE_COUNT;
+                    allButtons.forEach((b, i) => { const isActive = i % CLONE_COUNT === realIndex; b.classList.toggle('is-active', isActive); b.setAttribute('aria-pressed', String(isActive)); });
+                    if (triggerChange) onFilterChange(filters[realIndex].id);
+                };
+                const getPosX = e => e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+                const startDrag = e => { isClick = true; isDragging = true; startPos = getPosX(e); lastPosition = startPos; velocity = 0; cancelAnimationFrame(animationID); track.style.transition = 'none'; wrapper.classList.add('is-dragging'); };
+                const drag = e => { if (isDragging) { const currentPosition = getPosX(e); const moveX = currentPosition - startPos; if (Math.abs(moveX) > 5) isClick = false; velocity = currentPosition - lastPosition; lastPosition = currentPosition; setPosition(prevTranslate + moveX, false); } };
+                const endDrag = () => { if (!isDragging) return; isDragging = false; wrapper.classList.remove('is-dragging'); if (!isClick) { velocity *= AMPLIFIER; animationID = requestAnimationFrame(momentumScroll); } else { prevTranslate = currentTranslate; } };
+                const momentumScroll = () => { const trackWidth = track.scrollWidth/3; if(currentTranslate > -trackWidth){prevTranslate-=trackWidth;currentTranslate-=trackWidth;} if(currentTranslate < -trackWidth*2){prevTranslate+=trackWidth;currentTranslate+=trackWidth;} if (Math.abs(velocity) < 0.5) { cancelAnimationFrame(animationID); prevTranslate = currentTranslate; return; } currentTranslate += velocity; velocity *= FRICTION; setPosition(currentTranslate, false); animationID = requestAnimationFrame(momentumScroll); };
+                allButtons.forEach(b => b.addEventListener('click', e => { if (isClick) { cancelAnimationFrame(animationID); activateFilter(parseInt(e.currentTarget.dataset.index), true, true); } }));
+                track.addEventListener('mousedown', startDrag); track.addEventListener('touchstart', startDrag, { passive: true });
+                track.addEventListener('mousemove', drag); track.addEventListener('touchmove', drag, { passive: true });
+                window.addEventListener('mouseup', endDrag); window.addEventListener('touchend', endDrag);
+                window.addEventListener('resize', () => recenterTrack(false));
+                return { activateByIndex: (index, withAnim) => activateFilter(index, withAnim, false), getIndexById: id => filters.findIndex(f => f.id === id) };
+            };
+
+            const handleFilterChange = newId => { if (activeFilterId === newId) return; activeFilterId = newId; filterContent(); };
+
+            const initSettingsModal = () => {
+                const modalContainer = document.getElementById('settings-modal-container');
+                const modalHtml = `
+                    <div class="modal-overlay" id="settings-modal" style="display:none;">
+                        <div class="modal-content">
+                            <button class="modal-close-btn" id="modal-close-btn" title="إغلاق" aria-label="إغلاق"></button>
+                            <h2 class="modal-header">الإعدادات</h2>
+                            <div class="settings-content">
+                                <div class="settings-section">
+                                    <h3 class="settings-section-title">مظهر التطبيق</h3>
+                                    <div class="settings-item">
+                                        <h4>الوضع</h4>
+                                        <div class="mode-toggle">
+                                            <button class="mode-btn" data-mode="dark" role="button">ظلام</button>
+                                            <button class="mode-btn" data-mode="light" role="button">نهار</button>
+                                        </div>
+                                    </div>
+                                    <div class="settings-item">
+                                        <h4>اختر السمة</h4>
+                                        <div class="theme-picker" id="theme-picker-container">
+                                            ${Object.entries(PRESET_THEMES).map(([name, color]) => `<div class="theme-dot" data-color="${color}" style="background-color:${color};" title="${name}"></div>`).join('')}
+                                            <label for="custom-color-picker" class="color-picker-label" title="اختر لونًا مخصصًا">
+                                                <input id="custom-color-picker" type="color" class="color-picker-input" />
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                modalContainer.innerHTML = modalHtml;
+
+                const modal = document.getElementById('settings-modal'), openBtn = document.getElementById('settings-btn'), closeBtn = document.getElementById('modal-close-btn');
+                const modalContent = modal.querySelector('.modal-content');
+                const openModal = () => { modal.style.display = 'flex'; requestAnimationFrame(() => { document.body.classList.add('modal-open'); modal.classList.add('is-open'); }); };
+                const closeModal = () => { if (!modal.classList.contains('is-open')) return; document.body.classList.remove('modal-open'); modalContent.classList.add('is-closing'); modalContent.addEventListener('animationend', () => { modal.classList.remove('is-open'); modalContent.classList.remove('is-closing'); modal.style.display = 'none'; }, { once: true }); };
+                openBtn.onclick = openModal;
+                closeBtn.onclick = closeModal;
+                modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+                document.onkeydown = e => { if (e.key === 'Escape') closeModal(); };
+
+                const modeButtons = modal.querySelectorAll('.mode-btn');
+                const applyColorMode = mode => { document.body.classList.toggle('light-mode', mode === 'light'); document.querySelector('meta[name="theme-color"]').setAttribute('content', mode === 'light' ? '#f5f9ff' : '#0a0a0a'); localStorage.setItem('arch-portal-mode', mode); modeButtons.forEach(btn => { const isActive = btn.dataset.mode === mode; btn.classList.toggle('active', isActive); btn.setAttribute('aria-pressed', String(isActive)); }); };
+                modeButtons.forEach(btn => btn.onclick = () => applyColorMode(btn.dataset.mode));
+                
+                const themeDots = modal.querySelectorAll('.theme-dot'), customColorInput = document.getElementById('custom-color-picker'), customColorLabel = customColorInput.parentElement;
+                const hexToHsl = H => { let r=0,g=0,b=0;if(H.length==7){r="0x"+H[1]+H[2];g="0x"+H[3]+H[4];b="0x"+H[5]+H[6];}r/=255;g/=255;b/=255;let cmin=Math.min(r,g,b),cmax=Math.max(r,g,b),delta=cmax-cmin,h=0;if(delta==0)h=0;else if(cmax==r)h=((g-b)/delta)%6;else if(cmax==g)h=(b-r)/delta+2;else h=(r-g)/delta+4;h=Math.round(h*60);if(h<0)h+=360;return h;};
+                const hexToRgb = hex => { let r=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return r ? `${parseInt(r[1],16)},${parseInt(r[2],16)},${parseInt(r[3],16)}` : null; }
+                const updateActiveThemeState = hexColor => { const isCustom = !Object.values(PRESET_THEMES).includes(hexColor); themeDots.forEach(dot => dot.classList.toggle('active', dot.dataset.color === hexColor)); customColorLabel.classList.toggle('active', isCustom); customColorLabel.style.backgroundColor = isCustom ? hexColor : 'transparent'; };
+                const applyTheme = hex => { const root = document.documentElement; root.style.setProperty('--primary-hue', String(hexToHsl(hex))); root.style.setProperty('--rgb-primary', hexToRgb(hex)); localStorage.setItem('arch-portal-theme', hex); customColorInput.value = hex; updateActiveThemeState(hex); };
+                themeDots.forEach(dot => dot.onclick = () => applyTheme(dot.dataset.color));
+                customColorInput.addEventListener('input', e => applyTheme(e.target.value));
+                
+                applyColorMode(localStorage.getItem('arch-portal-mode') || 'dark');
+                applyTheme(localStorage.getItem('arch-portal-theme') || PRESET_THEMES.blue);
+            };
+
+            const initialize = () => {
+                document.getElementById("currentYear").textContent = new Date().getFullYear();
+                document.querySelector("#settings-btn").innerHTML = ICONS.cog;
+                document.querySelector(".footer-link[href*='t.me/mutlaq1']").innerHTML = ICONS.telegram;
+                
+                grid.insertAdjacentHTML('beforeend', SITE_DATA.map(createCardHTML).join(''));
+                
+                document.querySelectorAll('.link-card').forEach(card => {
+                    card.addEventListener('mousemove', e => { const rect = card.getBoundingClientRect(); card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`); card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`); });
+                    card.addEventListener('animationend', () => card.classList.remove('is-showing'), { once: true });
+                });
+                
+                const carousel = createCarouselInstance('primary-carousel-wrapper', 'primary-carousel-track', PRIMARY_FILTERS, handleFilterChange);
+                document.getElementById('reset-filter-btn').addEventListener('click', () => { const allIndex = carousel.getIndexById('all'); carousel.activateByIndex(allIndex + PRIMARY_FILTERS.length, true, true); });
+
+                initSettingsModal();
+                document.querySelector("#modal-close-btn").innerHTML = ICONS.times;
+                initCosmicEffects();
+
+                carousel.activateByIndex(PRIMARY_FILTERS.length, false, false);
+                const allFilterButton = document.querySelector('.filter-btn[data-filter="all"]');
+                if (allFilterButton) allFilterButton.classList.add('is-active');
+            };
+
+            initialize();
+        });
+    </script>
+</body>
+</html>
